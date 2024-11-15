@@ -1,0 +1,124 @@
+import 'package:bmet_ui/screen/visa_details/visa_details_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+
+import '../../res/colors/app_colors.dart';
+
+class EmployeeDetailsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double width=MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          'নিয়োগকারীর তথ্য',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.info_outline, color: Colors.green),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildProgressIndicator(),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 16),
+                        Text("নিয়োগকারীর তথ্য", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        Divider(thickness: 1,),
+                        _buildTextField('নিয়োগকারীর নাম *', 'নিয়োগকারীর নাম লিখুন'),
+                        SizedBox(height: 16),
+                        _buildTextField('নিয়োগকারীর ঠিকানা *', 'নিয়োগকারীর ঠিকানা লিখুন'),
+                        SizedBox(height: 16),
+                        _buildTextField('নিয়োগকারীর কম্যুনাগ নম্বর', 'নিয়োগকারীর যোগাযোগ নম্বর লিখুন'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: width,
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => VisaDetailsScreen()));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColor.tealColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Text(
+                'পরের পেইজ',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return LinearPercentIndicator(
+      padding: EdgeInsets.symmetric(horizontal: 15),
+      lineHeight: 30,
+      percent: 0.44,
+      center: Text("৪৪%"),
+      barRadius: Radius.circular(10),
+      linearGradient: LinearGradient(
+        colors: [
+          AppColor.progressBarColor1,
+          AppColor.progressBarColor2,
+        ],
+      ),
+      animateFromLastPercent: true,
+      animation: true,
+    );
+  }
+
+  Widget _buildTextField(String label, String hint) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        SizedBox(height: 8),
+        TextField(
+          decoration: InputDecoration(
+            hintText: hint,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.grey.shade300),
+            ),
+            filled: true,
+            fillColor: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+}

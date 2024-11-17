@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class AppColor{
   static const Color blackColor=Color(0xff000000);
   static const Color whiteColor=Color(0xffffffff);
@@ -14,7 +16,7 @@ class AppColor{
   static const Color primaryTextColor=Color(0xff000000);
   static const Color secondaryTextColor=Color(0xff444648);
 
-  static const Color tealColor=Color(0xFF2D6C50);
+  static const Color tealColor=Colors.teal;
   static const Color progressBarColor1=Color(0xFF1F3E48);
   static const Color progressBarColor2=Color(0xFF1C3239);
 }

@@ -1,7 +1,7 @@
-import 'package:bmet_ui/screen/mandatory/mandatory_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../res/colors/app_colors.dart';
+import '../mandatory/mandatory_screen.dart';
 
 class BmetClearanceScreen extends StatelessWidget {
   @override
@@ -10,21 +10,18 @@ class BmetClearanceScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 4,
+        shadowColor: Colors.grey.shade200,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'বিএমইটি ক্রিয়াকলাপ',
-              style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold),
-            ),
-          ],
+        title: Text(
+          'বিএমইটি ক্রিয়াকলাপ',
+          style: TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
@@ -35,13 +32,19 @@ class BmetClearanceScreen extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 80), // Add bottom padding for button
               children: [
                 const Center(
-                  child: Text(
-                    'Apply for Airport emigration clearance',
-                    style: TextStyle(color: Colors.black, fontSize: 14,fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'Apply for Airport emigration clearance',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Image.asset(
                     'assets/images/clearance_init_image.JPG', // Replace with your image asset path
                     fit: BoxFit.cover,
@@ -143,7 +146,8 @@ class BmetClearanceScreen extends StatelessWidget {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 2,
+      elevation: 4,
+      shadowColor: Colors.grey.shade300,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -165,7 +169,8 @@ class BmetClearanceScreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           item["text"],
-                          style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.grey.shade700),
                         ),
                       ),
                     ],
@@ -187,7 +192,8 @@ class BmetClearanceScreen extends StatelessWidget {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 2,
+      elevation: 4,
+      shadowColor: Colors.grey.shade300,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -199,6 +205,7 @@ class BmetClearanceScreen extends StatelessWidget {
             ),
             Divider(
               thickness: 1,
+              color: Colors.grey.shade300,
             ),
             SizedBox(height: 10),
             ...steps.map((step) {
@@ -212,7 +219,8 @@ class BmetClearanceScreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           step["text"],
-                          style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.grey.shade700),
                         ),
                       ),
                     ],

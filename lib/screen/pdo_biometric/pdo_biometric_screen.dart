@@ -19,7 +19,7 @@ class PdoBiometricScreen extends StatelessWidget {
         ),
         title: Text(
           'পিডিও এবং বায়োমেট্রিক ম্যাচিং',
-          style: TextStyle(color: Colors.black, fontSize: 18),
+          style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
         ),
         actions: [
           IconButton(
@@ -36,11 +36,10 @@ class PdoBiometricScreen extends StatelessWidget {
                 children: [
                   _buildProgressIndicator(),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0,right: 16,bottom: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 16),
                         _buildCard('পিডিও', 'Qatar 7898336', Icons.article, Colors.purple),
                         _buildCard('বায়োমেট্রিক', 'ডেটা জমা দেওয়া হয়েছে', Icons.fingerprint, Colors.blue),
                       ],
@@ -50,75 +49,28 @@ class PdoBiometricScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: AppColor.tealColor),
-                      // Set the border color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: Text(
-                      'পূর্ববর্তী',
-                      style: TextStyle(
-                          color: AppColor.tealColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight
-                              .bold), // Ensure the text color contrasts with the background
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicalDetailsScreen()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.tealColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: Text(
-                      'পরের পেজ',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
+          _buildBottomNavigation(context),
         ],
       ),
     );
   }
 
   Widget _buildProgressIndicator() {
-    return LinearPercentIndicator(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      lineHeight: 30,
-      percent: 0.66,
-      center: Text("৬৬%"),
-      barRadius: Radius.circular(10),
-      linearGradient: LinearGradient(
-        colors: [
-          AppColor.progressBarColor1,
-          AppColor.progressBarColor2,
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+      child: LinearPercentIndicator(
+        padding: EdgeInsets.zero,
+        lineHeight: 20,
+        percent: 0.66,
+        center: Text("৬৬%",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        barRadius: Radius.circular(15),
+        linearGradient: LinearGradient(
+          colors: [Colors.teal.shade300, Colors.teal.shade700],
+        ),
+        animateFromLastPercent: true,
+        animation: true,
       ),
-      animateFromLastPercent: true,
-      animation: true,
     );
   }
 
@@ -126,7 +78,14 @@ class PdoBiometricScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.3),
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
@@ -136,47 +95,104 @@ class PdoBiometricScreen extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(12),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  ),
+                ],
               ),
               child: Icon(icon, color: color, size: 24),
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 16),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
                   SizedBox(height: 8),
                   Container(
-                    width: 120,
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Center(
-                      child: Text(
-                        subtitle,
-                        style: TextStyle(fontSize: 14, color: color),
-                      ),
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(fontSize: 14, color: color, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
               ),
             ),
             SizedBox(width: 16),
-            Icon(Icons.check_circle, color: Colors.white, size: 24),
+            Icon(Icons.check_circle, color: Colors.white, size: 28),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildBottomNavigation(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: AppColor.tealColor),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Text(
+                'পূর্ববর্তী',
+                style: TextStyle(
+                    color: AppColor.tealColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          SizedBox(width: 16),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MedicalDetailsScreen()));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColor.tealColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Text(
+                'পরের পেজ',
+                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

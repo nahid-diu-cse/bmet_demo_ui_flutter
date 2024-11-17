@@ -84,20 +84,21 @@ class EmployeeDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildProgressIndicator() {
-    return LinearPercentIndicator(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      lineHeight: 30,
-      percent: 0.44,
-      center: Text("৪৪%"),
-      barRadius: Radius.circular(10),
-      linearGradient: LinearGradient(
-        colors: [
-          AppColor.progressBarColor1,
-          AppColor.progressBarColor2,
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+      child: LinearPercentIndicator(
+        padding: EdgeInsets.zero,
+        lineHeight: 30,
+        percent: 0.88,
+        center: Text("৮৮%",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        barRadius: Radius.circular(15),
+        linearGradient: LinearGradient(
+          colors: [Colors.teal.shade300, Colors.teal.shade700],
+        ),
+        animateFromLastPercent: true,
+        animation: true,
       ),
-      animateFromLastPercent: true,
-      animation: true,
     );
   }
 

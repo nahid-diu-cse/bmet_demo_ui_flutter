@@ -6,7 +6,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 class DocumentSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double width=MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -20,7 +20,7 @@ class DocumentSummaryScreen extends StatelessWidget {
         ),
         title: Text(
           'ডকুমেন্টস সামারি',
-          style: TextStyle(color: Colors.black, fontSize: 18),
+          style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
@@ -39,32 +39,39 @@ class DocumentSummaryScreen extends StatelessWidget {
                     children: [
                       _buildProgressIndicator(),
                       Padding(
-                        padding: const EdgeInsets.only(left: 16.0,right: 16,bottom: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 16),
-                            const Text('প্রয়োজনীয় কাগজপত্র',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold)),
-                            const Divider(thickness: 1,),
+                            const Text(
+                              'প্রয়োজনীয় কাগজপত্র',
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            const Divider(thickness: 1),
                             LayoutBuilder(
                               builder: (context, constraints) {
-                                int crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
+                                int crossAxisCount = constraints.maxWidth > 800 ? 4 : constraints.maxWidth > 600 ? 3 : 2;
                                 return GridView.builder(
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: crossAxisCount,
                                     crossAxisSpacing: 16,
                                     mainAxisSpacing: 16,
-                                    childAspectRatio: 0.8,
+                                    childAspectRatio: 0.75,
                                   ),
                                   itemCount: 4,
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     return _buildDocumentCard(
-                                        ['চাকরির ফাইলপত্র', 'ভিসা নথি', 'কাজের অনুমতি', 'ব্যাংক ডকুমেন্ট'][index],
-                                        [Colors.blue, Colors.purple, Colors.green, Colors.teal][index]);
+                                      [
+                                        'চাকরির ফাইলপত্র',
+                                        'ভিসা নথি',
+                                        'কাজের অনুমতি',
+                                        'ব্যাংক ডকুমেন্ট'
+                                      ][index],
+                                      [Colors.blue, Colors.purple, Colors.green, Colors.teal][index],
+                                    );
                                   },
                                 );
                               },
@@ -72,7 +79,7 @@ class DocumentSummaryScreen extends StatelessWidget {
                             SizedBox(height: 16),
                             Center(
                               child: Container(
-                                width: width*.6,
+                                width: width * 0.6,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ElevatedButton.icon(
@@ -86,8 +93,10 @@ class DocumentSummaryScreen extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(vertical: 16),
                                     ),
                                     icon: Icon(Icons.add_box_outlined, color: AppColor.tealColor),
-                                    label: Text('আরো যোগ করুন',
-                                        style: TextStyle(color: Colors.green, fontSize: 16)),
+                                    label: Text(
+                                      'আরো যোগ করুন',
+                                      style: TextStyle(color: AppColor.tealColor, fontSize: 16),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -101,81 +110,40 @@ class DocumentSummaryScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      side: BorderSide(color: AppColor.tealColor),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: Text(
-                      'পূর্ববর্তী',
-                      style: TextStyle(color: AppColor.tealColor, fontSize: 16),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>TotalSummaryScreen()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.tealColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: Text(
-                      'পরের পেইজ',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildBottomNavigation(context),
         ],
       ),
     );
   }
 
   Widget _buildProgressIndicator() {
-    return LinearPercentIndicator(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      lineHeight: 30,
-      percent: 1,
-      center: Text("১০০%"),
-      barRadius: Radius.circular(10),
-      linearGradient: LinearGradient(
-        colors: [
-          AppColor.progressBarColor1,
-          AppColor.progressBarColor2,
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+      child: LinearPercentIndicator(
+        padding: EdgeInsets.zero,
+        lineHeight: 20,
+        percent: 1.0,
+        center: Text("১০০%",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        barRadius: Radius.circular(15),
+        linearGradient: LinearGradient(
+          colors: [Colors.teal.shade300, Colors.teal.shade700],
+        ),
+        animateFromLastPercent: true,
+        animation: true,
       ),
-      animateFromLastPercent: true,
-      animation: true,
     );
   }
 
+
   Widget _buildDocumentCard(String title, Color color) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey.shade500,
-          borderRadius: BorderRadius.circular(8),
+          color: Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Stack(
           children: [
@@ -183,15 +151,16 @@ class DocumentSummaryScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.folder, color: color, size: 90),
-                  SizedBox(height: 8),
+                  Icon(Icons.folder, color: color, size: 80),
+                  SizedBox(height: 12),
                   Text(
                     title,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 12),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -204,8 +173,7 @@ class DocumentSummaryScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.check_circle, color: Colors.white),
                         SizedBox(width: 8),
-                        Text('দেখুন',
-                            style: TextStyle(color: Colors.white, fontSize: 14)),
+                        Text('দেখুন', style: TextStyle(color: Colors.white, fontSize: 14)),
                       ],
                     ),
                   ),
@@ -251,11 +219,60 @@ class DocumentSummaryScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('বন্ধ করুন'),
+              child: Text('বন্ধ করুন', style: TextStyle(color: Colors.red)),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget _buildBottomNavigation(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: OutlinedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: AppColor.tealColor),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Text(
+                'পূর্ববর্তী',
+                style: TextStyle(color: AppColor.tealColor, fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          SizedBox(width: 16),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TotalSummaryScreen()));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColor.tealColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Text(
+                'পরের পেইজ',
+                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

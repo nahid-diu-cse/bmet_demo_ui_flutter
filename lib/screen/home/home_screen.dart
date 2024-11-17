@@ -1,8 +1,4 @@
-import 'dart:ffi';
-
 import 'package:bmet_ui/res/colors/app_colors.dart';
-import 'package:bmet_ui/res/routes/routes_name.dart';
-import 'package:bmet_ui/screen/clearance/bmet_clearance_screen.dart';
 import 'package:bmet_ui/screen/clearance/clearance_step_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,10 +20,11 @@ class HomeScreen extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(
-              'assets/images/login_appbar_icon.JPG',
-              width: 130,
-            ),
+
+            // Image.asset(
+            //   'assets/images/login_appbar_icon.JPG',
+            //   width: width * 0.35,
+            // ),
           ],
         ),
         actions: [
@@ -38,188 +35,119 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header Section
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Your journey abroad',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
-                ],
-              ),
-            ),
-            // Green and Blue Cards Section
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal, // Enables horizontal scrolling
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      print('BMET registration card tapped!');
-                      // You can also navigate to a new page
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ClearanceStepScreen()));
-                    },
-                    borderRadius: BorderRadius.circular(8),
-                    child: Material(
-                      elevation: 5,
-                      // Adds elevation for shadow
-                      borderRadius: BorderRadius.circular(8),
-                      // Matches the Container's border radius
-                      shadowColor: Colors.black.withOpacity(0.2),
-                      child: Container(
-                        height: 130,
-                        width: 250,
-                        padding: EdgeInsets.all(16),
-                        margin: EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.green.shade400,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(Icons.assignment_outlined, color: Colors.white),
-                            SizedBox(height: 10),
-                            Text(
-                              'BMET registration',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              'Register into the databank to search and apply for jobs',
-                              style: TextStyle(fontSize: 12, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Material(
-                    elevation: 5,
-                    // Adds elevation for shadow
-                    borderRadius: BorderRadius.circular(8),
-                    // Matches the Container's border radius
-                    shadowColor: Colors.black.withOpacity(0.2),
-                    child: Container(
-                      height: 130,
-                      width: 250,
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.teal.shade400,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.search, color: Colors.white),
-                          SizedBox(height: 10),
-                          Text(
-                            'Search for jobs',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            'Find your desired jobs',
-                            style: TextStyle(fontSize: 12, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Divider(
-              thickness: 8,
-              color: Colors.grey.withOpacity(0.4),
-            ),
-            // Services Section
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Services near me',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    'View all (10)',
-                    style: TextStyle(fontSize: 14, color: Colors.blue),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header Section
+              const Padding(
+                padding: EdgeInsets.only(top: 16.0, bottom: 10.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    serviceCard(context, height*.18, width*.3,"assets/images/service_certificate_icon.JPG"),
-                    SizedBox(width: 10),
-                    serviceCard(context, height*.18, width*.3,"assets/images/ami_probashi.JPG"),
-                    SizedBox(width: 10),
-                    serviceCard(context, height*.18, width*.3,"assets/images/ami_probashi_brac.JPG"),
+                    Text(
+                      'Your journey abroad',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
+                    Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Divider(
-              color: Colors.grey.withOpacity(0.4),
-              thickness: 8,
-            ),
-            // Help Center Section
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Help center',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    'View all (6)',
-                    style: TextStyle(fontSize: 14, color: Colors.blue),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+              // Green and Blue Cards Section
+              SizedBox(
+                height: height * 0.2,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
-                    serviceCard(context, height*.18, width*.3,"assets/images/help1.JPG"),
-                    SizedBox(width: 10),
-                    serviceCard(context, height*.18, width*.3,"assets/images/help2.JPG"),
-                    SizedBox(width: 10),
-                    serviceCard(context, height*.18, width*.3,"assets/images/help3.JPG"),
+                    _buildFeatureCard(
+                      context,
+                      color: Colors.green.shade400,
+                      icon: Icons.assignment_outlined,
+                      title: 'BMET registration',
+                      description: 'Register into the databank to search and apply for jobs',
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ClearanceStepScreen()));
+                      },
+                    ),
+                    SizedBox(width: 16),
+                    _buildFeatureCard(
+                      context,
+                      color: Colors.teal.shade400,
+                      icon: Icons.search,
+                      title: 'Search for jobs',
+                      description: 'Find your desired jobs',
+                      onTap: () {},
+                    ),
                   ],
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              Divider(thickness: 8, color: Colors.grey.withOpacity(0.4)),
+              // Services Section
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Services near me',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'View all (10)',
+                      style: TextStyle(fontSize: 14, color: Colors.blue),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height * 0.2,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    serviceCard(context, "assets/images/service_certificate_icon.JPG"),
+                    SizedBox(width: 16),
+                    serviceCard(context, "assets/images/ami_probashi.JPG"),
+                    SizedBox(width: 16),
+                    serviceCard(context, "assets/images/ami_probashi_brac.JPG"),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Divider(thickness: 8, color: Colors.grey.withOpacity(0.4)),
+              // Help Center Section
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Help center',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'View all (6)',
+                      style: TextStyle(fontSize: 14, color: Colors.blue),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height * 0.2,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    serviceCard(context, "assets/images/help1.JPG"),
+                    SizedBox(width: 16),
+                    serviceCard(context, "assets/images/help2.JPG"),
+                    SizedBox(width: 16),
+                    serviceCard(context, "assets/images/help3.JPG"),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       // Bottom Navigation Bar
@@ -244,27 +172,64 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget card(double height, double width, String text) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(8),
+  Widget _buildFeatureCard(BuildContext context,
+      {required Color color,
+        required IconData icon,
+        required String title,
+        required String description,
+        required VoidCallback onTap}) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Material(
+        elevation: 5,
+        borderRadius: BorderRadius.circular(16),
+        shadowColor: Colors.black.withOpacity(0.2),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.6,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(icon, color: Colors.white, size: 32),
+              SizedBox(height: 10),
+              Text(
+                title,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+              SizedBox(height: 8),
+              Text(
+                description,
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ],
+          ),
+        ),
       ),
-      child: Icon(Icons.verified_outlined, size: 30, color: Colors.teal),
     );
   }
 
-  Widget serviceCard(BuildContext context, double height, double width, String image) {
+  Widget serviceCard(BuildContext context, String image) {
+    double height = MediaQuery.of(context).size.height * 0.18;
+    double width = MediaQuery.of(context).size.width * 0.35;
     return Container(
       height: height,
       width: width,
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(16),
       ),
-      child: Image.asset(image),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Image.asset(
+          image,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

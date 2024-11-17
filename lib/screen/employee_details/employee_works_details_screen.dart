@@ -5,6 +5,8 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../res/colors/app_colors.dart';
 
 class EmployeeWorksDetailsScreen extends StatelessWidget {
+  const EmployeeWorksDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     double width= MediaQuery.of(context).size.width;

@@ -1,3 +1,4 @@
+import 'package:bmet_ui/res/components/build_progress_indicator.dart';
 import 'package:bmet_ui/screen/bank_details/bank_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';

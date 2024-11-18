@@ -1,3 +1,4 @@
+import 'package:bmet_ui/screen/home/home_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -301,7 +302,7 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PaymentSummaryScreen()),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
           );
         },
         style: ElevatedButton.styleFrom(

@@ -1,3 +1,4 @@
+import 'package:bmet_ui/res/components/round_button.dart';
 import 'package:bmet_ui/screen/visa_details/visa_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -57,27 +58,9 @@ class EmployeeDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            width: width,
-            color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => VisaDetailsScreen()));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColor.tealColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: Text(
-                'পরের পেইজ',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-          ),
+          RoundButton(width:width,title: "পরের পেইজ", onPress: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => VisaDetailsScreen()));
+          })
         ],
       ),
     );
@@ -89,8 +72,8 @@ class EmployeeDetailsScreen extends StatelessWidget {
       child: LinearPercentIndicator(
         padding: EdgeInsets.zero,
         lineHeight: 30,
-        percent: 0.88,
-        center: Text("৮৮%",
+        percent: 0.44,
+        center: Text("৪৪%",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         barRadius: Radius.circular(15),
         linearGradient: LinearGradient(

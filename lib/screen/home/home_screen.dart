@@ -1,9 +1,38 @@
 import 'package:bmet_ui/res/colors/app_colors.dart';
+import 'package:bmet_ui/screen/bmet_registration/bmit_form/bmit_form_screen.dart';
 import 'package:bmet_ui/screen/clearance/clearance_step_screen.dart';
+import 'package:bmet_ui/screen/pdo/pdo_orientation_screen/pdo_orientation_screen.dart';
+import 'package:bmet_ui/view_model/controller/home/home_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../bmet_registration/assure_screen/assure_screen.dart';
+
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  HomeViewModel homeViewModel=Get.put(HomeViewModel());
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (homeViewModel.isFirstVisit.value) {
+        showDialog(
+          context: context,
+          builder: (context) => const CustomPopup(),
+        );
+        homeViewModel.isFirstVisit.value=false;
+      }
+    });
+
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -20,7 +49,6 @@ class HomeScreen extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-
             // Image.asset(
             //   'assets/images/login_appbar_icon.JPG',
             //   width: width * 0.35,
@@ -48,15 +76,17 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Your journey abroad',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
-                    Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
+                    Icon(Icons.arrow_forward_ios,
+                        size: 16, color: Colors.black),
                   ],
                 ),
               ),
               // Green and Blue Cards Section
               SizedBox(
-                height: height * 0.2,
+                height: height * 0.22,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
@@ -64,10 +94,39 @@ class HomeScreen extends StatelessWidget {
                       context,
                       color: Colors.green.shade400,
                       icon: Icons.assignment_outlined,
-                      title: 'BMET registration',
-                      description: 'Register into the databank to search and apply for jobs',
+                      title: 'বিএমইটি রেজিস্ট্রেশন',
+                      description:
+                          'বিদেশে চাকরির অনুসন্ধান ও আবেদনে বিএমইটি রেজিস্ট্রেশন করুন',
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ClearanceStepScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BMITFormScreen()));
+                      },
+                    ),
+                    SizedBox(width: 16),
+                    _buildFeatureCard(
+                      context,
+                      color: Colors.teal.shade400,
+                      icon: FontAwesomeIcons.accusoft,
+                      title: 'প্রি-ডিপার্চার ওরিয়েন্টেশন',
+                      description: 'Find your desired jobs',
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>PdoOrientationScreen()));
+                      },
+                    ),
+                    SizedBox(width: 16),
+                    _buildFeatureCard(
+                      context,
+                      color: Colors.deepPurple.shade400,
+                      icon: FontAwesomeIcons.canadianMapleLeaf,
+                      title: 'বিএমইটি ক্লিয়ারেন্স',
+                      description: 'Find your desired jobs',
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ClearanceStepScreen()));
                       },
                     ),
                     SizedBox(width: 16),
@@ -92,7 +151,8 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Services near me',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                     Text(
                       'View all (10)',
@@ -106,7 +166,8 @@ class HomeScreen extends StatelessWidget {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    serviceCard(context, "assets/images/service_certificate_icon.JPG"),
+                    serviceCard(
+                        context, "assets/images/service_certificate_icon.JPG"),
                     SizedBox(width: 16),
                     serviceCard(context, "assets/images/ami_probashi.JPG"),
                     SizedBox(width: 16),
@@ -124,7 +185,8 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Help center',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                     Text(
                       'View all (6)',
@@ -174,10 +236,10 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildFeatureCard(BuildContext context,
       {required Color color,
-        required IconData icon,
-        required String title,
-        required String description,
-        required VoidCallback onTap}) {
+      required IconData icon,
+      required String title,
+      required String description,
+      required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
@@ -186,7 +248,7 @@ class HomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         shadowColor: Colors.black.withOpacity(0.2),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.6,
+          width: MediaQuery.of(context).size.width * 0.7,
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: color,
@@ -199,7 +261,10 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 10),
               Text(
                 title,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               SizedBox(height: 8),
               Text(

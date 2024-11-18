@@ -1,3 +1,4 @@
+import 'package:bmet_ui/res/components/build_progress_indicator.dart';
 import 'package:bmet_ui/screen/employee_details/employee_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -38,7 +39,7 @@ class EmployeeWorksDetailsScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column( // Padding for fixed button
                 children: [
-                  _buildCustomProgressIndicator(),
+                  BuildProgressIndicator(text: "২২", percent: 0.22),
                   _buildInitialInfoSection(),
                   _buildScrollContent(context),
                 ],
